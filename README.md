@@ -209,4 +209,5 @@ Pagination is supported, but only tested with Kaminari.
 
 ## TODO
 
-- Open for suggestions
+- Setup Code Climate
+- Setup CI
