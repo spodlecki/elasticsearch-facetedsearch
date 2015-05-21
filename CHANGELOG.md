@@ -1,3 +1,8 @@
+# 0.0.3 - hotfix
+
+- Added spec due to improper merge on 0.0.2 tag
+- Fixed bug with bad hash merge on :facet_filter parameter
+
 # 0.0.2
 
 - Allow facets to keep counts regardless of filters applied
