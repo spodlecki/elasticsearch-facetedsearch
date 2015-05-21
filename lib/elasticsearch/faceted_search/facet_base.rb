@@ -138,18 +138,23 @@ module Elasticsearch
         end
       end
 
+      def facet_size_allowed
+        70
+      end
+
     private
 
-      def build_facets
+      def build_facets(filter_counts=true)
         h = {}
+        filtered_facets = filter_counts && filter_query.present? ? {facet_filter: { :and => filter_query }} : {}
+
         class_facets.each do |k,v|
           h.merge!({
             k => {
               terms: {
                 field: v[:field],
-                size: 10
-              },
-              facet_filter: filter_query
+                size: facet_size_allowed
+              }.merge(filtered_facets)
             }.reject{|k,v| v.blank?}
           })
         end

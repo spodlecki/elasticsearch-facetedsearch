@@ -33,7 +33,7 @@ describe Elasticsearch::FacetedSearch::FacetBase do
   describe "#query" do
 
     it "removes an empty items" do
-      expect(model.query).to eq({:size=>32, :from=>0, :facets=>{:hd=>{:terms=>{:field=>"media_hd", :size=>10}}}})
+      expect(model.query).to eq({:size=>32, :from=>0, :facets=>{:hd=>{:terms=>{:field=>"media_hd", :size=>70}}}})
     end
 
     describe "with facets and filters" do
@@ -43,7 +43,7 @@ describe Elasticsearch::FacetedSearch::FacetBase do
         expect(model.query).to eq({:size=>32, :from=>0, filter: {and: 'hi'}})
       end
 
-      it "merges facets whe nfacets has value" do
+      it "merges facets when facets has value" do
         expect(model).to receive(:filter_query) { nil }
         expect(model).to receive(:facet_query).at_least(:once) { 'hi' }
         expect(model.query).to eq({:size=>32, :from=>0, facets: 'hi'})
@@ -103,12 +103,12 @@ describe Elasticsearch::FacetedSearch::FacetBase do
         }
       end
       it "has a default sort" do
-        expect(model.query).to eq({:size=>32, :from=>0, :sort=>["updated"], :facets=>{:hd=>{:terms=>{:field=>"media_hd", :size=>10}}}})
+        expect(model.query).to eq({:size=>32, :from=>0, :sort=>["updated"], :facets=>{:hd=>{:terms=>{:field=>"media_hd", :size=>70}}}})
       end
 
       it "can have a selected sort" do
         expect(model).to receive(:search_params).at_least(:once) { {sort: 'relevant'} }
-        expect(model.query).to eq({:size=>32, :from=>0, :sort=>["_score"], :facets=>{:hd=>{:terms=>{:field=>"media_hd", :size=>10}}}})
+        expect(model.query).to eq({:size=>32, :from=>0, :sort=>["_score"], :facets=>{:hd=>{:terms=>{:field=>"media_hd", :size=>70}}}})
       end
     end
   end
@@ -141,15 +141,29 @@ describe Elasticsearch::FacetedSearch::FacetBase do
       }.to raise_error
     end
     describe "with filters" do
-      before(:each) do
-        expect(model).to receive(:filter_query) { [{terms: {:hello => ['world']}}] }
-      end
       it "equals a specific format" do
+        expect(model).to receive(:filter_query).at_least(:once) { [{terms: {:hello => ['world']}}] }
         expect(model.send(:build_facets)).to eq(
           {
-            :hd=> {
-              :terms=>{:field=>"media_hd", :size=>10},
-              :facet_filter=>[{:terms=>{:hello=>["world"]}}]
+            :hd=>{
+              :terms=>{
+                :field=>"media_hd", :size=>70, :facet_filter=>{
+                  :and=>[
+                    {:terms=>{:hello=>["world"]}}
+                  ]
+                }
+              }
+            }
+          }
+        )
+      end
+      it "can bypass the facet_filter declaration" do
+        expect(model.send(:build_facets, false)).to eq(
+          {
+            :hd=>{
+              :terms=>{
+                :field=>"media_hd", :size=>70
+              }
             }
           }
         )
@@ -162,7 +176,7 @@ describe Elasticsearch::FacetedSearch::FacetBase do
       it "equals a specific format" do
         expect(model.send(:build_facets)).to eq({
           :hd=>{
-            :terms=>{:field=>"media_hd", :size=>10}
+            :terms=>{:field=>"media_hd", :size=>70}
           }
         })
       end

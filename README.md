@@ -68,9 +68,11 @@ Create `config/initializers/elasticsearch.rb`. We normally namespace our indexed
         'fruit'
       end
 
-      # def query
-      #   super
-      # end
+      # Use this to add a query search or something
+      # Probably best to cache the results
+      def query
+        @query ||= super
+      end
 
       # Apply additional pre-filters
       # If overwriting this method, ensure to call super, and ensure to cache the results
@@ -101,6 +103,13 @@ Create `config/initializers/elasticsearch.rb`. We normally namespace our indexed
             default: true
           }
         ]
+      end
+
+      # Want to always keep facet counts the same regardless of filters applied?
+      # pass true to keep counts scoped to search, & false to remove filters entirely
+      #
+      def build_facets
+        super(false)
       end
     end
 
@@ -200,4 +209,4 @@ Pagination is supported, but only tested with Kaminari.
 
 ## TODO
 
-- Possibly allow ability to turn `facet_filter` off to keep counts consistent
+- Open for suggestions
