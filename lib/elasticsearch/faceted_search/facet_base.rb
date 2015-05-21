@@ -1,4 +1,5 @@
 require 'ostruct'
+require 'elasticsearch/model'
 
 module Elasticsearch
   module FacetedSearch
