@@ -147,16 +147,25 @@ describe Elasticsearch::FacetedSearch::FacetBase do
           {
             :hd=>{
               :terms=>{
-                :field=>"media_hd", :size=>70, :facet_filter=>{
-                  :and=>[
-                    {:terms=>{:hello=>["world"]}}
-                  ]
-                }
+                :field=>"media_hd", :size=>70
+              },
+              :facet_filter=>{
+                :and=>[
+                  {:terms=>{:hello=>["world"]}}
+                ]
               }
             }
           }
         )
       end
+
+      # Added spec due to improper merge on 0.0.2 release
+      # => if this spec is failing, elastic search is going to complain
+      it "has 2 keys" do
+        expect(model).to receive(:filter_query).at_least(:once) { [{terms: {:hello => ['world']}}] }
+        expect(model.send(:build_facets)[:hd].keys).to eq([:terms, :facet_filter])
+      end
+
       it "can bypass the facet_filter declaration" do
         expect(model.send(:build_facets, false)).to eq(
           {

@@ -154,8 +154,8 @@ module Elasticsearch
               terms: {
                 field: v[:field],
                 size: facet_size_allowed
-              }.merge(filtered_facets)
-            }.reject{|k,v| v.blank?}
+              }
+            }.merge(filtered_facets).reject{|k,v| v.blank?}
           })
         end
 
