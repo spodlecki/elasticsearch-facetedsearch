@@ -26,22 +26,14 @@ module Elasticsearch
       end
 
       def params_for
-        if selected?
-          case type
-          when 'multivalue' then remove_multivalue
-          when 'multivalue_and' then remove_multivalue(:and)
-          when 'multivalue_or'  then remove_multivalue(:or)
-          when 'exclusive_or'   then remove_singlevalue
-          # else                  raise UnknownSelectableType.new "Unknown selectable type for #{param_key} in #{group.type}"
-          end
-        else
-          case type
-          when 'multivalue'     then add_multivalue
-          when 'multivalue_and' then add_multivalue(:and)
-          when 'multivalue_or'  then add_multivalue(:or)
-          when 'exclusive_or'   then add_singlevalue
+        prefix = selected? ? :remove : :add
+
+        case type
+          when 'multivalue'     then send(:"#{prefix}_multivalue")
+          when 'multivalue_and' then send(:"#{prefix}_multivalue", :and)
+          when 'multivalue_or'  then send(:"#{prefix}_multivalue", :or)
+          when 'exclusive_or'   then send(:"#{prefix}_singlevalue")
           # else                  raise UnknownSelectableType.new "Unknown selectable type #{selectable_type} for #{@type}"
-          end
         end
       end
 
