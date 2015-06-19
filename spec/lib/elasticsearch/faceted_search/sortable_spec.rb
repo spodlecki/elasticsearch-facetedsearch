@@ -72,7 +72,7 @@ describe Elasticsearch::FacetedSearch::Sortable do
     it "is private" do
       expect {
         model.selected_sort_value
-      }.to raise_error
+      }.to raise_error(NoMethodError)
     end
     it "returns the sort from search params" do
       expect(model).to receive(:search_params).at_least(:once) { {sort: 'hi'} }
@@ -88,7 +88,7 @@ describe Elasticsearch::FacetedSearch::Sortable do
     it "is private" do
       expect {
         model.sort_param
-      }.to raise_error
+      }.to raise_error(NoMethodError)
     end
     it "returns the sort param" do
       expect(model).to receive(:search_params) { {sort: 'hi'} }
@@ -104,7 +104,7 @@ describe Elasticsearch::FacetedSearch::Sortable do
     it "is private" do
       expect {
         model.default_sort_value
-      }.to raise_error
+      }.to raise_error(NoMethodError)
     end
     it "matches the default config" do
       expect(model.send(:default_sort_value)).to eq('updated')
@@ -115,7 +115,7 @@ describe Elasticsearch::FacetedSearch::Sortable do
     it "is private" do
       expect {
         model.default_sort
-      }.to raise_error
+      }.to raise_error(NoMethodError)
     end
     it "matches the default config" do
       expect(model.send(:default_sort)).to eq(model.sorts.first)

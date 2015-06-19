@@ -138,7 +138,7 @@ describe Elasticsearch::FacetedSearch::FacetBase do
     it "is private" do
       expect {
         model.build_facets
-      }.to raise_error
+      }.to raise_error(NoMethodError)
     end
     describe "with filters" do
       it "equals a specific format" do
@@ -196,7 +196,7 @@ describe Elasticsearch::FacetedSearch::FacetBase do
     it "is private" do
       expect {
         model.build_filters
-      }.to raise_error
+      }.to raise_error(NoMethodError)
     end
     describe "with #filter_XX? = true" do
       before(:each) do
@@ -223,7 +223,7 @@ describe Elasticsearch::FacetedSearch::FacetBase do
     it "is private" do
       expect {
         model.values_for(:hd)
-      }.to raise_error
+      }.to raise_error(NoMethodError)
     end
 
     it "always returns an array" do
@@ -236,7 +236,7 @@ describe Elasticsearch::FacetedSearch::FacetBase do
     it "is private" do
       expect {
         model.execution_type('multivalue_or')
-      }.to raise_error
+      }.to raise_error(NoMethodError)
     end
     it "returns :or when 'multivalue_or'" do
       expect(model.send(:execution_type, 'multivalue_or')).to eq(:or)

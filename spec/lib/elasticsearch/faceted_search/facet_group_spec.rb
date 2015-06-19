@@ -166,7 +166,7 @@ describe Elasticsearch::FacetedSearch::FacetGroup do
     it "is private" do
       expect {
         model.build_items
-      }.to raise_error
+      }.to raise_error(NoMethodError)
     end
     it "returns a group of FacetItems" do
       expect(model.send(:build_items).all?{|x| x.is_a?(Elasticsearch::FacetedSearch::FacetItem)}).to eq(true)
@@ -177,7 +177,7 @@ describe Elasticsearch::FacetedSearch::FacetGroup do
     it "is private" do
       expect {
         model.terms_collection
-      }.to raise_error
+      }.to raise_error(NoMethodError)
     end
     it "returns mapped_objects if search does not respond to 'key'_collection?" do
       expect(model).to receive(:mapped_objects) { 'hi' }
@@ -196,7 +196,7 @@ describe Elasticsearch::FacetedSearch::FacetGroup do
     it "is private" do
       expect {
         model.hit_count_mapping(@items)
-      }.to raise_error
+      }.to raise_error(NoMethodError)
     end
     it "returns merged hashes" do
       expect(model.send(:hit_count_mapping, @items)).to eq({"t"=>476, "f"=>481})
