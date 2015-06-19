@@ -2,6 +2,7 @@
 
 [![Code Climate](https://codeclimate.com/github/spodlecki/elasticsearch-facetedsearch/badges/gpa.svg)](https://codeclimate.com/github/spodlecki/elasticsearch-facetedsearch)
 [![Test Coverage](https://codeclimate.com/github/spodlecki/elasticsearch-facetedsearch/badges/coverage.svg)](https://codeclimate.com/github/spodlecki/elasticsearch-facetedsearch/coverage)
+[![Build Status](https://travis-ci.org/spodlecki/elasticsearch-facetedsearch.svg)](https://travis-ci.org/spodlecki/elasticsearch-facetedsearch)
 
 Quickly add faceted searching to your Rails app. This gem is opinionated as to how faceted searching works. **Filters are applied to the counts** so the counts themselves will change while different filters are applied.
 
@@ -212,5 +213,4 @@ Pagination is supported, but only tested with Kaminari.
 
 ## TODO
 
-- Setup CI
 - Setup facet generator
