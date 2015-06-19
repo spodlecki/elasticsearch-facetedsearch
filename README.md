@@ -212,6 +212,5 @@ Pagination is supported, but only tested with Kaminari.
 
 ## TODO
 
-- Setup Code Climate
 - Setup CI
 - Setup facet generator
