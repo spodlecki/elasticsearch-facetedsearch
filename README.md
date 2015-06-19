@@ -1,5 +1,8 @@
 # Elasticsearch::FacetedSearch
 
+[![Code Climate](https://codeclimate.com/github/spodlecki/elasticsearch-facetedsearch/badges/gpa.svg)](https://codeclimate.com/github/spodlecki/elasticsearch-facetedsearch)
+[![Test Coverage](https://codeclimate.com/github/spodlecki/elasticsearch-facetedsearch/badges/coverage.svg)](https://codeclimate.com/github/spodlecki/elasticsearch-facetedsearch/coverage)
+
 Quickly add faceted searching to your Rails app. This gem is opinionated as to how faceted searching works. **Filters are applied to the counts** so the counts themselves will change while different filters are applied.
 
 ## Installation
