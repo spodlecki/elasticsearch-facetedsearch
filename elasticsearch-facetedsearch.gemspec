@@ -9,7 +9,7 @@ Gem::Specification.new do |spec|
   spec.authors       = ["s.podlecki"]
   spec.email         = ["s.podlecki@gmail.com"]
   spec.description   = %q{Add faceted searching with ElasticSearch to your Models}
-  spec.summary       = %q{}
+  spec.summary       = %q{Quickly apply a faceted search using ElasticSearch and Models.}
   spec.homepage      = "https://github.com/spodlecki/elasticsearch-facetedsearch"
   spec.license       = "MIT"
 
