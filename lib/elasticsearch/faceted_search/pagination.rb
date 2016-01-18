@@ -8,7 +8,7 @@ module Elasticsearch
       end
 
       def total_pages
-        (total_count / limit).ceil
+        (total_count.to_f / limit_value.to_f).ceil
       end
 
       def limit_value
